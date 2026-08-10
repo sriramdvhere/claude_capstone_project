@@ -221,3 +221,92 @@ def test_description_501_chars_raises_correct_message():
         )
     messages = [e["msg"] for e in exc_info.value.errors()]
     assert "description must not exceed 500 characters" in messages
+
+
+# ---------------------------------------------------------------------------
+# Additional coverage: amount boundary values
+# ---------------------------------------------------------------------------
+
+
+def test_amount_very_small_positive_is_accepted():
+    """Smallest meaningful currency amount (0.01) must be accepted."""
+    expense = ExpenseCreate(amount="0.01", category="Food", date="2026-07-22")
+    from decimal import Decimal
+    assert expense.amount == Decimal("0.01")
+
+
+def test_amount_large_positive_is_accepted():
+    """No upper bound on amount (assumption A-06); large values must be accepted."""
+    expense = ExpenseCreate(amount="9999999.99", category="Food", date="2026-07-22")
+    assert expense.amount > 0
+
+
+def test_amount_explicit_decimal_is_accepted():
+    """Passing a Decimal object directly must be accepted."""
+    from decimal import Decimal
+    expense = ExpenseCreate(
+        amount=Decimal("45.50"), category="Food", date="2026-07-22"
+    )
+    assert expense.amount == Decimal("45.50")
+
+
+# ---------------------------------------------------------------------------
+# Additional coverage: category — None input
+# ---------------------------------------------------------------------------
+
+
+def test_category_none_raises_correct_message():
+    """Explicit None for category must raise 'category is required'."""
+    with pytest.raises(ValidationError) as exc_info:
+        ExpenseCreate(amount="45.50", category=None, date="2026-07-22")
+    messages = [e["msg"] for e in exc_info.value.errors()]
+    assert "category is required" in messages
+
+
+def test_category_strips_spaces_to_exactly_100_chars_is_accepted():
+    """Category padded with whitespace that strips to exactly 100 chars must be accepted."""
+    padded = "  " + "a" * 100 + "  "
+    expense = ExpenseCreate(amount="45.50", category=padded, date="2026-07-22")
+    assert len(expense.category) == 100
+
+
+# ---------------------------------------------------------------------------
+# Additional coverage: date — additional invalid formats and calendar values
+# ---------------------------------------------------------------------------
+
+
+def test_date_slash_format_raises_correct_message():
+    """Date in YYYY/MM/DD format must be rejected."""
+    with pytest.raises(ValidationError) as exc_info:
+        ExpenseCreate(amount="45.50", category="Food", date="2026/07/22")
+    messages = [e["msg"] for e in exc_info.value.errors()]
+    assert "date must be in YYYY-MM-DD format" in messages
+
+
+def test_date_invalid_calendar_date_raises_correct_message():
+    """Date with a valid format but an impossible calendar value (month 13) must be rejected."""
+    with pytest.raises(ValidationError) as exc_info:
+        ExpenseCreate(amount="45.50", category="Food", date="2026-13-01")
+    messages = [e["msg"] for e in exc_info.value.errors()]
+    assert "date must be in YYYY-MM-DD format" in messages
+
+
+def test_date_none_raises_correct_message():
+    """Explicit None for date must raise 'date is required'."""
+    with pytest.raises(ValidationError) as exc_info:
+        ExpenseCreate(amount="45.50", category="Food", date=None)
+    messages = [e["msg"] for e in exc_info.value.errors()]
+    assert "date is required" in messages
+
+
+# ---------------------------------------------------------------------------
+# Additional coverage: description — None and numeric coercion
+# ---------------------------------------------------------------------------
+
+
+def test_description_none_is_treated_as_empty_string():
+    """Explicit None for description must coerce to empty string."""
+    expense = ExpenseCreate(
+        amount="45.50", category="Food", date="2026-07-22", description=None
+    )
+    assert expense.description == ""

@@ -280,3 +280,162 @@ def test_body_exceeding_10kb_returns_413(test_client):
         headers={"Content-Type": "application/json"},
     )
     assert response.status_code == 413
+
+
+# ---------------------------------------------------------------------------
+# Additional coverage: error response body structures
+# ---------------------------------------------------------------------------
+
+
+def test_db_unavailable_response_body_structure(test_client):
+    """503 response must contain 'error' and 'details' keys."""
+    with patch("app.repository.insert", side_effect=DBUnavailableError("DB down")):
+        response = test_client.post(
+            "/expenses",
+            json={"amount": 45.50, "category": "Food", "date": "2026-07-22"},
+        )
+    data = response.json()
+    assert response.status_code == 503
+    assert "error" in data
+    assert "details" in data
+    assert isinstance(data["details"], list)
+
+
+def test_db_error_response_body_structure(test_client):
+    """500 response must contain 'error' and 'details' keys."""
+    with patch("app.repository.insert", side_effect=DBError("General error")):
+        response = test_client.post(
+            "/expenses",
+            json={"amount": 45.50, "category": "Food", "date": "2026-07-22"},
+        )
+    data = response.json()
+    assert response.status_code == 500
+    assert "error" in data
+    assert "details" in data
+    assert isinstance(data["details"], list)
+
+
+def test_413_response_body_structure(test_client):
+    """413 response must contain 'error' and 'details' keys."""
+    import json
+
+    large_description = "x" * (10 * 1024 + 1)
+    body = json.dumps(
+        {
+            "amount": 1.00,
+            "category": "Test",
+            "date": "2026-07-22",
+            "description": large_description,
+        }
+    ).encode()
+    response = test_client.post(
+        "/expenses",
+        content=body,
+        headers={"Content-Type": "application/json"},
+    )
+    data = response.json()
+    assert response.status_code == 413
+    assert "error" in data
+    assert "details" in data
+
+
+# ---------------------------------------------------------------------------
+# Additional coverage: null field values in JSON
+# ---------------------------------------------------------------------------
+
+
+def test_null_amount_returns_400_with_exact_message(test_client):
+    """JSON null for amount must return 400 with 'amount must be a valid number'."""
+    response = test_client.post(
+        "/expenses",
+        json={"amount": None, "category": "Food", "date": "2026-07-22"},
+    )
+    assert response.status_code == 400
+    assert "amount must be a valid number" in response.json()["details"]
+
+
+def test_null_date_returns_400_with_exact_message(test_client):
+    """JSON null for date must return 400 with 'date is required'."""
+    response = test_client.post(
+        "/expenses",
+        json={"amount": 45.50, "category": "Food", "date": None},
+    )
+    assert response.status_code == 400
+    assert "date is required" in response.json()["details"]
+
+
+# ---------------------------------------------------------------------------
+# Additional coverage: category too long at API level
+# ---------------------------------------------------------------------------
+
+
+def test_category_too_long_returns_400(test_client):
+    """Category exceeding 100 characters must return 400."""
+    response = test_client.post(
+        "/expenses",
+        json={"amount": 45.50, "category": "a" * 101, "date": "2026-07-22"},
+    )
+    assert response.status_code == 400
+    data = response.json()
+    assert data["error"] == "Validation failed"
+    assert len(data["details"]) > 0
+
+
+# ---------------------------------------------------------------------------
+# Additional coverage: multiple validation errors in a single request
+# ---------------------------------------------------------------------------
+
+
+def test_multiple_missing_fields_returns_all_errors(test_client):
+    """A request missing both category and date must return 400 with both errors."""
+    response = test_client.post(
+        "/expenses",
+        json={"amount": 45.50},
+    )
+    assert response.status_code == 400
+    details = response.json()["details"]
+    assert "category is required" in details
+    assert "date is required" in details
+
+
+# ---------------------------------------------------------------------------
+# Additional coverage: date format variants at API level
+# ---------------------------------------------------------------------------
+
+
+def test_date_slash_format_returns_400(test_client):
+    """Date in YYYY/MM/DD format must return 400 with the exact message."""
+    response = test_client.post(
+        "/expenses",
+        json={"amount": 45.50, "category": "Food", "date": "2026/07/22"},
+    )
+    assert response.status_code == 400
+    assert "date must be in YYYY-MM-DD format" in response.json()["details"]
+
+
+def test_date_invalid_calendar_date_returns_400(test_client):
+    """Date with impossible month (13) must return 400 with the exact message."""
+    response = test_client.post(
+        "/expenses",
+        json={"amount": 45.50, "category": "Food", "date": "2026-13-01"},
+    )
+    assert response.status_code == 400
+    assert "date must be in YYYY-MM-DD format" in response.json()["details"]
+
+
+# ---------------------------------------------------------------------------
+# Additional coverage: 400 error response shape invariant
+# ---------------------------------------------------------------------------
+
+
+def test_400_error_response_has_correct_shape(test_client):
+    """Every 400 response must include 'error' and 'details' as a list."""
+    response = test_client.post(
+        "/expenses",
+        json={"amount": -1, "category": "Food", "date": "2026-07-22"},
+    )
+    data = response.json()
+    assert response.status_code == 400
+    assert data["error"] == "Validation failed"
+    assert isinstance(data["details"], list)
+    assert len(data["details"]) > 0
