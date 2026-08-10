@@ -178,6 +178,24 @@ Questions for you:
 
 ---
 
+### Phase 6: Agent Completion Report
+**Objective**: Emit a structured completion marker as the absolute last output so the orchestrator can record phase metadata in `docs/pipeline-status.json`
+
+**Steps**:
+1. After all work in Phases 1–5 is fully complete, emit the following block as the **very last line** of your response. Substitute `[branch-name]` with the actual branch that was created:
+
+```
+<!-- AGENT_COMPLETION_REPORT
+{"model":"claude-sonnet-4-6","inputTokens":null,"outputTokens":null,"cacheReadTokens":null,"cacheWriteTokens":null,"notes":"Requirements documented. Branch [branch-name] created and pushed."}
+-->
+```
+
+2. Do not emit this block mid-workflow or before commit/push is confirmed.
+3. Do not omit this block — the orchestrator parses it to populate `tokens` and `metadata` in `docs/pipeline-status.json`.
+4. Do not fabricate token counts; leave `inputTokens`, `outputTokens`, `cacheReadTokens`, and `cacheWriteTokens` as `null`.
+
+---
+
 ## Agent Behavior Guidelines
 
 ### Communication Style

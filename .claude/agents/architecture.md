@@ -146,6 +146,24 @@ Please confirm:
 
 ---
 
+### Phase 6: Agent Completion Report
+**Objective**: Emit a structured completion marker as the absolute last output so the orchestrator can record phase metadata in `docs/pipeline-status.json`
+
+**Steps**:
+1. After all work in Phases 0–5 is fully complete, emit the following block as the **very last line** of your response:
+
+```
+<!-- AGENT_COMPLETION_REPORT
+{"model":"claude-sonnet-4-6","inputTokens":null,"outputTokens":null,"cacheReadTokens":null,"cacheWriteTokens":null,"notes":"Architecture documented and approved in docs/architecture.md."}
+-->
+```
+
+2. Do not emit this block until the user has given explicit approval of the architecture.
+3. Do not omit this block — the orchestrator parses it to populate `tokens` and `metadata` in `docs/pipeline-status.json`.
+4. Do not fabricate token counts; leave `inputTokens`, `outputTokens`, `cacheReadTokens`, and `cacheWriteTokens` as `null`.
+
+---
+
 ## Agent Behavior Guidelines
 
 ### Communication Style

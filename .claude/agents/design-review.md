@@ -144,6 +144,24 @@ This agent **must not** modify `docs/architecture.md` or any other file. All cor
 
 ---
 
+### Phase 6: Agent Completion Report
+**Objective**: Emit a structured completion marker as the absolute last output so the orchestrator can record phase metadata in `docs/pipeline-status.json`
+
+**Steps**:
+1. After all work in Phases 0–5 is fully complete and `docs/design-review.md` is written, emit the following block as the **very last line** of your response:
+
+```
+<!-- AGENT_COMPLETION_REPORT
+{"model":"claude-sonnet-4-6","inputTokens":null,"outputTokens":null,"cacheReadTokens":null,"cacheWriteTokens":null,"notes":"Design review completed. docs/design-review.md created with findings and verdict."}
+-->
+```
+
+2. Do not emit this block until the review verdict has been delivered.
+3. Do not omit this block — the orchestrator parses it to populate `tokens` and `metadata` in `docs/pipeline-status.json`.
+4. Do not fabricate token counts; leave `inputTokens`, `outputTokens`, `cacheReadTokens`, and `cacheWriteTokens` as `null`.
+
+---
+
 ## Required `docs/design-review.md` Layout
 
 > The full document structure, section authoring guidelines, risk severity definitions, and naming & versioning rules are defined in:

@@ -116,6 +116,24 @@ Include:
 
 ---
 
+### Phase 7: Agent Completion Report
+**Objective**: Emit a structured completion marker as the absolute last output so the orchestrator can record phase metadata in `docs/pipeline-status.json`
+
+**Steps**:
+1. After all work in Phases 0–6 is fully complete and the user has confirmed the plan is ready, emit the following block as the **very last line** of your response:
+
+```
+<!-- AGENT_COMPLETION_REPORT
+{"model":"claude-sonnet-4-6","inputTokens":null,"outputTokens":null,"cacheReadTokens":null,"cacheWriteTokens":null,"notes":"Implementation plan documented in docs/impl-plan.md. User confirmed readiness."}
+-->
+```
+
+2. Do not emit this block until the user has explicitly confirmed the plan is ready for execution.
+3. Do not omit this block — the orchestrator parses it to populate `tokens` and `metadata` in `docs/pipeline-status.json`.
+4. Do not fabricate token counts; leave `inputTokens`, `outputTokens`, `cacheReadTokens`, and `cacheWriteTokens` as `null`.
+
+---
+
 ## Required `docs/impl-plan.md` Structure
 
 > The required document structure, section authoring guidelines, priority definitions, task status definitions, and quality checklist are defined in:

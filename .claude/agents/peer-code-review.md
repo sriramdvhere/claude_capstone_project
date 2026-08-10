@@ -199,6 +199,24 @@ Final review summary should include:
 
 ---
 
+### Phase 7: Agent Completion Report
+**Objective**: Emit a structured completion marker as the absolute last output so the orchestrator can record phase metadata in `docs/pipeline-status.json`
+
+**Steps**:
+1. After the review closure summary in Phase 6 is delivered, emit the following block as the **very last line** of your response:
+
+```
+<!-- AGENT_COMPLETION_REPORT
+{"model":"claude-sonnet-4-6","inputTokens":null,"outputTokens":null,"cacheReadTokens":null,"cacheWriteTokens":null,"notes":"Peer code review complete. peer-review-summary.md created with final recommendation."}
+-->
+```
+
+2. Emit this block whether the review concluded with Ready, Ready with Minor Fixes, or Not Ready.
+3. Do not omit this block — the orchestrator parses it to populate `tokens` and `metadata` in `docs/pipeline-status.json`.
+4. Do not fabricate token counts; leave `inputTokens`, `outputTokens`, `cacheReadTokens`, and `cacheWriteTokens` as `null`.
+
+---
+
 ## Suggested Review Output Format
 
 ```markdown

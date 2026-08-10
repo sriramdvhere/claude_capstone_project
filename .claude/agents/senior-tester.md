@@ -201,6 +201,24 @@ When the pass is complete or blocked, summarize:
 
 ---
 
+### Phase 7: Agent Completion Report
+**Objective**: Emit a structured completion marker as the absolute last output so the orchestrator can record phase metadata in `docs/pipeline-status.json`
+
+**Steps**:
+1. After the full handoff summary in Phase 6 is delivered, emit the following block as the **very last line** of your response:
+
+```
+<!-- AGENT_COMPLETION_REPORT
+{"model":"claude-sonnet-4-6","inputTokens":null,"outputTokens":null,"cacheReadTokens":null,"cacheWriteTokens":null,"notes":"Testing complete. Test report available at docs/test-report.md."}
+-->
+```
+
+2. Emit this block whether the test pass completed fully, partially, or was blocked — so the orchestrator always receives a report.
+3. Do not omit this block — the orchestrator parses it to populate `tokens` and `metadata` in `docs/pipeline-status.json`.
+4. Do not fabricate token counts; leave `inputTokens`, `outputTokens`, `cacheReadTokens`, and `cacheWriteTokens` as `null`.
+
+---
+
 ## Operating Principles
 
 ### Test Value Over Test Count
