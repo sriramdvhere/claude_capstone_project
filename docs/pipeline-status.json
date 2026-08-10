@@ -18,12 +18,6 @@
       "completedAt": "2026-08-10T00:05:00Z",
       "primaryOutput": "docs/requirements.md",
       "retryCount": 0,
-      "tokens": {
-        "inputTokens": null,
-        "outputTokens": null,
-        "cacheReadTokens": null,
-        "cacheWriteTokens": null
-      },
       "metadata": {
         "durationMs": 240000,
         "model": "claude-sonnet-4-6",
@@ -38,12 +32,6 @@
       "completedAt": "2026-08-10T00:10:00Z",
       "primaryOutput": "docs/architecture.md",
       "retryCount": 0,
-      "tokens": {
-        "inputTokens": null,
-        "outputTokens": null,
-        "cacheReadTokens": null,
-        "cacheWriteTokens": null
-      },
       "metadata": {
         "durationMs": null,
         "model": null,
@@ -58,12 +46,6 @@
       "completedAt": "2026-08-10T00:17:00Z",
       "primaryOutput": "docs/design-review.md",
       "retryCount": 0,
-      "tokens": {
-        "inputTokens": null,
-        "outputTokens": null,
-        "cacheReadTokens": null,
-        "cacheWriteTokens": null
-      },
       "metadata": {
         "durationMs": null,
         "model": null,
@@ -78,12 +60,6 @@
       "completedAt": "2026-08-10T00:24:00Z",
       "primaryOutput": "docs/impl-plan.md",
       "retryCount": 0,
-      "tokens": {
-        "inputTokens": null,
-        "outputTokens": null,
-        "cacheReadTokens": null,
-        "cacheWriteTokens": null
-      },
       "metadata": {
         "durationMs": null,
         "model": null,
@@ -98,12 +74,6 @@
       "completedAt": "2026-08-10T00:50:00Z",
       "primaryOutput": "source code",
       "retryCount": 0,
-      "tokens": {
-        "inputTokens": null,
-        "outputTokens": null,
-        "cacheReadTokens": null,
-        "cacheWriteTokens": null
-      },
       "metadata": {
         "durationMs": null,
         "model": null,
@@ -118,12 +88,6 @@
       "completedAt": "2026-08-10T01:05:00Z",
       "primaryOutput": "test-report.md",
       "retryCount": 0,
-      "tokens": {
-        "inputTokens": null,
-        "outputTokens": null,
-        "cacheReadTokens": null,
-        "cacheWriteTokens": null
-      },
       "metadata": {
         "durationMs": null,
         "model": null,
@@ -138,12 +102,6 @@
       "completedAt": "2026-08-10T01:21:00Z",
       "primaryOutput": "peer-review-summary.md",
       "retryCount": 0,
-      "tokens": {
-        "inputTokens": null,
-        "outputTokens": null,
-        "cacheReadTokens": null,
-        "cacheWriteTokens": null
-      },
       "metadata": {
         "durationMs": null,
         "model": null,
@@ -158,12 +116,6 @@
       "completedAt": "2026-08-10T01:25:00Z",
       "primaryOutput": "https://github.com/sriramdvhere/claude_capstone_project/pull/1",
       "retryCount": 0,
-      "tokens": {
-        "inputTokens": null,
-        "outputTokens": null,
-        "cacheReadTokens": null,
-        "cacheWriteTokens": null
-      },
       "metadata": {
         "durationMs": null,
         "model": null,
