@@ -1,0 +1,175 @@
+{
+  "pipeline": {
+    "userStory": "User Story 1: Add an Expense — As a user, I want to record a new expense with an amount, category, date, and description, so that I can keep track of my spending.",
+    "startedAt": "2026-08-10T00:00:00Z",
+    "lastUpdated": "2026-08-10T00:01:00Z",
+    "entryPoint": {
+      "position": 1,
+      "agent": ".claude/agents/requirements.md"
+    },
+    "outcome": "IN_PROGRESS"
+  },
+  "phases": [
+    {
+      "position": 1,
+      "agent": ".claude/agents/requirements.md",
+      "status": "COMPLETED",
+      "startedAt": "2026-08-10T00:01:00Z",
+      "completedAt": "2026-08-10T00:05:00Z",
+      "primaryOutput": "docs/requirements.md",
+      "retryCount": 0,
+      "tokens": {
+        "inputTokens": null,
+        "outputTokens": null,
+        "cacheReadTokens": null,
+        "cacheWriteTokens": null
+      },
+      "metadata": {
+        "durationMs": 240000,
+        "model": "claude-sonnet-4-6",
+        "notes": "Requirements documented. Branch feature/US-001-add-expense created locally."
+      }
+    },
+    {
+      "position": 2,
+      "agent": ".claude/agents/architecture.md",
+      "status": "COMPLETED",
+      "startedAt": "2026-08-10T00:06:00Z",
+      "completedAt": "2026-08-10T00:10:00Z",
+      "primaryOutput": "docs/architecture.md",
+      "retryCount": 0,
+      "tokens": {
+        "inputTokens": null,
+        "outputTokens": null,
+        "cacheReadTokens": null,
+        "cacheWriteTokens": null
+      },
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    },
+    {
+      "position": 3,
+      "agent": ".claude/agents/design-review.md",
+      "status": "COMPLETED",
+      "startedAt": "2026-08-10T00:11:00Z",
+      "completedAt": "2026-08-10T00:17:00Z",
+      "primaryOutput": "docs/design-review.md",
+      "retryCount": 0,
+      "tokens": {
+        "inputTokens": null,
+        "outputTokens": null,
+        "cacheReadTokens": null,
+        "cacheWriteTokens": null
+      },
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    },
+    {
+      "position": 4,
+      "agent": ".claude/agents/implementation-planner.md",
+      "status": "COMPLETED",
+      "startedAt": "2026-08-10T00:18:00Z",
+      "completedAt": "2026-08-10T00:24:00Z",
+      "primaryOutput": "docs/impl-plan.md",
+      "retryCount": 0,
+      "tokens": {
+        "inputTokens": null,
+        "outputTokens": null,
+        "cacheReadTokens": null,
+        "cacheWriteTokens": null
+      },
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    },
+    {
+      "position": 5,
+      "agent": ".claude/agents/senior-developer.md",
+      "status": "IN_PROGRESS",
+      "startedAt": "2026-08-10T00:25:00Z",
+      "completedAt": null,
+      "primaryOutput": "source code",
+      "retryCount": 0,
+      "tokens": {
+        "inputTokens": null,
+        "outputTokens": null,
+        "cacheReadTokens": null,
+        "cacheWriteTokens": null
+      },
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    },
+    {
+      "position": 6,
+      "agent": ".claude/agents/senior-tester.md",
+      "status": "PENDING",
+      "startedAt": null,
+      "completedAt": null,
+      "primaryOutput": "test-report.md",
+      "retryCount": 0,
+      "tokens": {
+        "inputTokens": null,
+        "outputTokens": null,
+        "cacheReadTokens": null,
+        "cacheWriteTokens": null
+      },
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    },
+    {
+      "position": 7,
+      "agent": ".claude/agents/peer-code-review.md",
+      "status": "PENDING",
+      "startedAt": null,
+      "completedAt": null,
+      "primaryOutput": "peer-review-summary.md",
+      "retryCount": 0,
+      "tokens": {
+        "inputTokens": null,
+        "outputTokens": null,
+        "cacheReadTokens": null,
+        "cacheWriteTokens": null
+      },
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    },
+    {
+      "position": 8,
+      "agent": ".claude/agents/pr-creator.md",
+      "status": "PENDING",
+      "startedAt": null,
+      "completedAt": null,
+      "primaryOutput": "GitHub PR URL",
+      "retryCount": 0,
+      "tokens": {
+        "inputTokens": null,
+        "outputTokens": null,
+        "cacheReadTokens": null,
+        "cacheWriteTokens": null
+      },
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    }
+  ],
+  "retryHistory": []
+}

@@ -5,16 +5,6 @@ model: claude-sonnet-4-6
 tools: Edit, Write
 ---
 
-<!-- MIGRATION NOTE — MANUAL REVIEW REQUIRED
-The following Copilot tools could not be automatically mapped to Claude Code equivalents:
-  - atlassian-rovo-mcp/*
-
-Action required: Review the agent instructions below and replace or remove references
-to these tools. Common options:
-  - MCP tools: configure the server in .mcp.json and add the server name to `tools:` frontmatter
-  - Custom tools: implement as Bash calls or remove if not applicable
--->
-
 # GitHub Copilot Agent Instructions: Requirements Definition & Documentation
 
 ## Agent Purpose
