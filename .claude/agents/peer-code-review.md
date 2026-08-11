@@ -1,7 +1,7 @@
 ---
 name: peer-code-review
 description: Review local pre-push code changes for correctness, safety, test coverage, and maintainability before a pull request is opened. Input: specify files or branches to review, or leave blank to review all uncommitted changes
-model: claude-sonnet-4-6
+model: sonnet
 ---
 
 # GitHub Copilot Agent Instructions: Peer Code Review Agent

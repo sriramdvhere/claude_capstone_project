@@ -1,7 +1,7 @@
 ---
 name: architecture
 description: Partner with the user to design a high-level system architecture from `docs/requirements.md`, validate the recommendation through iterative feedback, and document the approved architecture clearly. Input: say 'start' to begin architecture design from docs/requirements.md
-model: claude-sonnet-4-6
+model: sonnet
 ---
 
 # GitHub Copilot Agent Instructions: Architecture Design & Documentation

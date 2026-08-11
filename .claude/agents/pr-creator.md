@@ -1,7 +1,7 @@
 ---
 name: pr-creator
 description: Prepare completed local changes for merge by committing, pushing, and opening a pull request targeting main with complete reviewer-ready metadata. Input: provide branch name or describe the changes to package into a pull request
-model: claude-sonnet-4-6
+model: sonnet
 tools:
   - Bash
   - mcp__github__create_pull_request

@@ -1,7 +1,7 @@
 ---
 name: implementation-planner
 description: Convert approved architecture into a prioritized, dependency-ordered implementation plan with blockers, risks, and execution sequencing. Input: provide approved architecture or specific modules to plan implementation for
-model: claude-sonnet-4-6
+model: sonnet
 ---
 
 # GitHub Copilot Agent Instructions: Implementation Planning & Dependency Sequencing

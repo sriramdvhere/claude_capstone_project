@@ -1,8 +1,8 @@
 ---
 name: orchestrator
 description: Manage and drive the full agent pipeline in a fixed, mandatory sequence. Act as a transparent relay between the user and each pipeline agent. Maintain a live pipeline status log at docs/pipeline-status.json throughout execution. Input: provide a JIRA ticket, User Story link, or plain-text story to drive the full pipeline
-model: claude-opus-4-8
 tools: Read, Agent, Edit, Write
+model: sonnet
 ---
 
 # Pipeline Orchestrator

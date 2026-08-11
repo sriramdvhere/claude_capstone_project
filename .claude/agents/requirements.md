@@ -1,8 +1,8 @@
 ---
 name: requirements
 description: Collaboratively define and document functional and non-functional requirements for User Stories from JIRA, Confluence, or Word documents through an interactive, clarifying dialogue. Input: provide a User Story from JIRA, Confluence, or raw text for requirements documentation
-model: claude-sonnet-4-6
 tools: Edit, Write
+model: sonnet
 ---
 
 # GitHub Copilot Agent Instructions: Requirements Definition & Documentation

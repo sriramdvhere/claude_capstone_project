@@ -1,7 +1,7 @@
 ---
 name: design-review
 description: Review approved architecture before implementation, identify risks and gaps, and document findings with recommended updates. Input: provide docs/architecture.md or specific design concerns to review
-model: claude-sonnet-4-6
+model: sonnet
 ---
 
 # GitHub Copilot Agent Instructions: Senior Design Review

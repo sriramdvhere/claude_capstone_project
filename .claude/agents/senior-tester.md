@@ -1,7 +1,7 @@
 ---
 name: senior-tester
 description: Expand automated verification with unit and integration tests, execute relevant test runs, and produce a quality-focused test report. Input: specify modules or features to test, or request full coverage expansion
-model: claude-sonnet-4-6
+model: sonnet
 ---
 
 # GitHub Copilot Agent Instructions: Senior Tester Agent

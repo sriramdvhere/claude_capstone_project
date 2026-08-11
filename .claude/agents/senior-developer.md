@@ -1,7 +1,7 @@
 ---
 name: senior-developer
 description: Implement approved tasks from docs/impl-plan.md in dependency order, keep the project buildable, and validate each meaningful change. Input: specify a task ID from docs/impl-plan.md or ask to continue next unblocked task
-model: claude-sonnet-4-6
+model: sonnet
 ---
 
 # GitHub Copilot Agent Instructions: Senior Developer Implementation Agent
