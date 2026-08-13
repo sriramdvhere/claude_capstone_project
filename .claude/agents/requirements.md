@@ -1,19 +1,9 @@
 ---
 name: requirements
 description: Collaboratively define and document functional and non-functional requirements for User Stories from JIRA, Confluence, or Word documents through an interactive, clarifying dialogue. Input: provide a User Story from JIRA, Confluence, or raw text for requirements documentation
-model: claude-sonnet-4-6
 tools: Edit, Write
+model: sonnet
 ---
-
-<!-- MIGRATION NOTE — MANUAL REVIEW REQUIRED
-The following Copilot tools could not be automatically mapped to Claude Code equivalents:
-  - atlassian-rovo-mcp/*
-
-Action required: Review the agent instructions below and replace or remove references
-to these tools. Common options:
-  - MCP tools: configure the server in .mcp.json and add the server name to `tools:` frontmatter
-  - Custom tools: implement as Bash calls or remove if not applicable
--->
 
 # GitHub Copilot Agent Instructions: Requirements Definition & Documentation
 
@@ -185,6 +175,24 @@ Questions for you:
    ```
 3. Confirm successful push and share the branch name with the user
 4. Offer next steps (e.g., trigger the Architecture agent, Design Review agent, or Implementation Planner)
+
+---
+
+### Phase 6: Agent Completion Report
+**Objective**: Emit a structured completion marker as the absolute last output so the orchestrator can record phase metadata in `docs/pipeline-status.json`
+
+**Steps**:
+1. After all work in Phases 1–5 is fully complete, emit the following block as the **very last line** of your response. Substitute `[branch-name]` with the actual branch that was created:
+
+```
+<!-- AGENT_COMPLETION_REPORT
+{"model":"claude-sonnet-4-6","inputTokens":null,"outputTokens":null,"cacheReadTokens":null,"cacheWriteTokens":null,"notes":"Requirements documented. Branch [branch-name] created and pushed."}
+-->
+```
+
+2. Do not emit this block mid-workflow or before commit/push is confirmed.
+3. Do not omit this block — the orchestrator parses it to populate `tokens` and `metadata` in `docs/pipeline-status.json`.
+4. Do not fabricate token counts; leave `inputTokens`, `outputTokens`, `cacheReadTokens`, and `cacheWriteTokens` as `null`.
 
 ---
 

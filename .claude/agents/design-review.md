@@ -1,7 +1,7 @@
 ---
 name: design-review
 description: Review approved architecture before implementation, identify risks and gaps, and document findings with recommended updates. Input: provide docs/architecture.md or specific design concerns to review
-model: claude-sonnet-4-6
+model: sonnet
 ---
 
 # GitHub Copilot Agent Instructions: Senior Design Review
@@ -141,6 +141,24 @@ This agent **must not** modify `docs/architecture.md` or any other file. All cor
 2. Summarize unresolved high-risk items
 3. List all required architecture changes documented in Section 5 of `docs/design-review.md` for the Architect to action
 4. Recommend next steps (detailed design, threat model, load test planning, implementation sequencing)
+
+---
+
+### Phase 6: Agent Completion Report
+**Objective**: Emit a structured completion marker as the absolute last output so the orchestrator can record phase metadata in `docs/pipeline-status.json`
+
+**Steps**:
+1. After all work in Phases 0–5 is fully complete and `docs/design-review.md` is written, emit the following block as the **very last line** of your response:
+
+```
+<!-- AGENT_COMPLETION_REPORT
+{"model":"claude-sonnet-4-6","inputTokens":null,"outputTokens":null,"cacheReadTokens":null,"cacheWriteTokens":null,"notes":"Design review completed. docs/design-review.md created with findings and verdict."}
+-->
+```
+
+2. Do not emit this block until the review verdict has been delivered.
+3. Do not omit this block — the orchestrator parses it to populate `tokens` and `metadata` in `docs/pipeline-status.json`.
+4. Do not fabricate token counts; leave `inputTokens`, `outputTokens`, `cacheReadTokens`, and `cacheWriteTokens` as `null`.
 
 ---
 

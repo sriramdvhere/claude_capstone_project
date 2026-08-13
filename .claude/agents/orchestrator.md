@@ -1,8 +1,8 @@
 ---
 name: orchestrator
 description: Manage and drive the full agent pipeline in a fixed, mandatory sequence. Act as a transparent relay between the user and each pipeline agent. Maintain a live pipeline status log at docs/pipeline-status.json throughout execution. Input: provide a JIRA ticket, User Story link, or plain-text story to drive the full pipeline
-model: claude-opus-4-8
 tools: Read, Agent, Edit, Write
+model: sonnet
 ---
 
 # Pipeline Orchestrator
@@ -88,7 +88,17 @@ The pipeline sequence is **fixed and mandatory**. Agents must always execute in 
    ```
 3. Delegate to the agent using the `Agent` tool, passing the appropriate `subagent_type` (agent name without `.md`) and the full pipeline context as the task prompt.
 4. The agent runs its own workflow **independently**. The orchestrator does **not** inject, alter, or pre-process the agent's instructions or outputs.
-5. After the Agent tool returns, capture token usage from the tool result if available and record it in the phase's `tokens` object.
+5. After the Agent tool returns, extract phase metadata from the agent's output text by scanning for an `<!-- AGENT_COMPLETION_REPORT ... -->` block:
+   - Locate the block using the pattern: `<!-- AGENT_COMPLETION_REPORT` … `-->`
+   - Parse the JSON object between the markers
+   - Write the extracted fields into the corresponding phase in `docs/pipeline-status.json`:
+     - `tokens.inputTokens` ← `inputTokens`
+     - `tokens.outputTokens` ← `outputTokens`
+     - `tokens.cacheReadTokens` ← `cacheReadTokens`
+     - `tokens.cacheWriteTokens` ← `cacheWriteTokens`
+     - `metadata.model` ← `model`
+     - `metadata.notes` ← `notes`
+   - If no `AGENT_COMPLETION_REPORT` block is present, or the JSON is malformed, leave all affected fields as `null` — do not fabricate values.
 6. Monitor for one of three outcomes:
    - **Agent completes successfully** → proceed to Phase 3 (Handoff)
    - **Agent requests user input** → proceed to Phase 4 (Relay)
@@ -369,7 +379,7 @@ The pipeline sequence is **fixed and mandatory**. Agents must always execute in 
 }
 ```
 
-**Token population guidance**: After each Agent tool call returns, extract token counts from the tool result's usage block if present, and populate the corresponding phase `tokens` fields. If the sub-agent reports its model name, record it in `metadata.model`. If token data is unavailable, leave the fields as `null` — do not fabricate values.
+**Token population guidance**: After each Agent tool call returns, scan the agent's output text for an `<!-- AGENT_COMPLETION_REPORT ... -->` block. Parse the JSON inside and map fields to the phase entry: `inputTokens`, `outputTokens`, `cacheReadTokens`, `cacheWriteTokens` → `tokens.*`; `model` → `metadata.model`; `notes` → `metadata.notes`. If the block is absent or the JSON is malformed, leave all affected fields as `null` — do not fabricate values.
 
 After every update, also set `pipeline.lastUpdated` to the current UTC timestamp.
 

@@ -1,7 +1,7 @@
 ---
 name: pr-creator
 description: Prepare completed local changes for merge by committing, pushing, and opening a pull request targeting main with complete reviewer-ready metadata. Input: provide branch name or describe the changes to package into a pull request
-model: claude-sonnet-4-6
+model: sonnet
 tools:
   - Bash
   - mcp__github__create_pull_request
@@ -150,6 +150,24 @@ If you have a preferred PR title, issue key, or release note constraint, share i
 2. Summarize whether commits and pushes were performed.
 3. Mention any limitations that remain open.
 4. If the PR could not be created, explain the exact blocker and what must happen next.
+
+---
+
+### Phase 5: Agent Completion Report
+**Objective**: Emit a structured completion marker as the absolute last output so the orchestrator can record phase metadata in `docs/pipeline-status.json`
+
+**Steps**:
+1. After the completion handoff in Phase 4 is delivered, emit the following block as the **very last line** of your response. Substitute `[PR URL]` with the actual URL returned by `mcp__github__create_pull_request`:
+
+```
+<!-- AGENT_COMPLETION_REPORT
+{"model":"claude-sonnet-4-6","inputTokens":null,"outputTokens":null,"cacheReadTokens":null,"cacheWriteTokens":null,"notes":"PR created successfully. URL: [PR URL]"}
+-->
+```
+
+2. Emit this block whether the PR was created successfully or could not be created — include the reason in `notes` if it failed.
+3. Do not omit this block — the orchestrator parses it to populate `tokens` and `metadata` in `docs/pipeline-status.json`.
+4. Do not fabricate token counts; leave `inputTokens`, `outputTokens`, `cacheReadTokens`, and `cacheWriteTokens` as `null`.
 
 ---
 
