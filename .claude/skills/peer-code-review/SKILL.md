@@ -2,12 +2,6 @@
 name: peer-code-review
 description: Review local pre-push code changes for correctness, safety, test coverage, and maintainability before a pull request is opened. Invoke with /peer-code-review. Input: specify files or branches to review, or leave blank to review all uncommitted changes.
 disable-model-invocation: true
-triggers:
-  - /peer-code-review
-  - peer review
-  - pre-PR review
-  - code review before PR
-  - review my changes
 ---
 
 # Peer Code Review Skill
