@@ -1,7 +1,7 @@
 ---
 name: senior-developer
 description: Implement approved tasks from docs/impl-plan.md in dependency order, keep the project buildable, and validate each meaningful change. Input: specify a task ID from docs/impl-plan.md or ask to continue next unblocked task
-model: claude-sonnet-4-6
+model: sonnet
 ---
 
 # GitHub Copilot Agent Instructions: Senior Developer Implementation Agent
@@ -130,6 +130,24 @@ When you pause or finish, report:
 - files changed
 - verification performed
 - next ready task, if any
+
+---
+
+### Phase 7: Agent Completion Report
+**Objective**: Emit a structured completion marker as the absolute last output so the orchestrator can record phase metadata in `docs/pipeline-status.json`
+
+**Steps**:
+1. After the full handoff summary in Phase 6 is delivered, emit the following block as the **very last line** of your response:
+
+```
+<!-- AGENT_COMPLETION_REPORT
+{"model":"claude-sonnet-4-6","inputTokens":null,"outputTokens":null,"cacheReadTokens":null,"cacheWriteTokens":null,"notes":"All implementation tasks completed per docs/impl-plan.md."}
+-->
+```
+
+2. Emit this block whether the implementation finished fully, paused on a blocker, or was partially completed — so the orchestrator always receives a report.
+3. Do not omit this block — the orchestrator parses it to populate `tokens` and `metadata` in `docs/pipeline-status.json`.
+4. Do not fabricate token counts; leave `inputTokens`, `outputTokens`, `cacheReadTokens`, and `cacheWriteTokens` as `null`.
 
 ---
 

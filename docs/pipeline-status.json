@@ -1,0 +1,127 @@
+{
+  "pipeline": {
+    "userStory": "User Story 1: Add an Expense — As a user, I want to record a new expense with an amount, category, date, and description, so that I can keep track of my spending.",
+    "startedAt": "2026-08-10T00:00:00Z",
+    "lastUpdated": "2026-08-10T01:25:00Z",
+    "entryPoint": {
+      "position": 1,
+      "agent": ".claude/agents/requirements.md"
+    },
+    "outcome": "COMPLETED"
+  },
+  "phases": [
+    {
+      "position": 1,
+      "agent": ".claude/agents/requirements.md",
+      "status": "COMPLETED",
+      "startedAt": "2026-08-10T00:01:00Z",
+      "completedAt": "2026-08-10T00:05:00Z",
+      "primaryOutput": "docs/requirements.md",
+      "retryCount": 0,
+      "metadata": {
+        "durationMs": 240000,
+        "model": "claude-sonnet-4-6",
+        "notes": "Requirements documented. Branch feature/US-001-add-expense created locally."
+      }
+    },
+    {
+      "position": 2,
+      "agent": ".claude/agents/architecture.md",
+      "status": "COMPLETED",
+      "startedAt": "2026-08-10T00:06:00Z",
+      "completedAt": "2026-08-10T00:10:00Z",
+      "primaryOutput": "docs/architecture.md",
+      "retryCount": 0,
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    },
+    {
+      "position": 3,
+      "agent": ".claude/agents/design-review.md",
+      "status": "COMPLETED",
+      "startedAt": "2026-08-10T00:11:00Z",
+      "completedAt": "2026-08-10T00:17:00Z",
+      "primaryOutput": "docs/design-review.md",
+      "retryCount": 0,
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    },
+    {
+      "position": 4,
+      "agent": ".claude/agents/implementation-planner.md",
+      "status": "COMPLETED",
+      "startedAt": "2026-08-10T00:18:00Z",
+      "completedAt": "2026-08-10T00:24:00Z",
+      "primaryOutput": "docs/impl-plan.md",
+      "retryCount": 0,
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    },
+    {
+      "position": 5,
+      "agent": ".claude/agents/senior-developer.md",
+      "status": "COMPLETED",
+      "startedAt": "2026-08-10T00:25:00Z",
+      "completedAt": "2026-08-10T00:50:00Z",
+      "primaryOutput": "source code",
+      "retryCount": 0,
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    },
+    {
+      "position": 6,
+      "agent": ".claude/agents/senior-tester.md",
+      "status": "COMPLETED",
+      "startedAt": "2026-08-10T00:51:00Z",
+      "completedAt": "2026-08-10T01:05:00Z",
+      "primaryOutput": "test-report.md",
+      "retryCount": 0,
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    },
+    {
+      "position": 7,
+      "agent": ".claude/agents/peer-code-review.md",
+      "status": "COMPLETED",
+      "startedAt": "2026-08-10T01:06:00Z",
+      "completedAt": "2026-08-10T01:21:00Z",
+      "primaryOutput": "peer-review-summary.md",
+      "retryCount": 0,
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    },
+    {
+      "position": 8,
+      "agent": ".claude/agents/pr-creator.md",
+      "status": "COMPLETED",
+      "startedAt": "2026-08-10T01:22:00Z",
+      "completedAt": "2026-08-10T01:25:00Z",
+      "primaryOutput": "https://github.com/sriramdvhere/claude_capstone_project/pull/1",
+      "retryCount": 0,
+      "metadata": {
+        "durationMs": null,
+        "model": null,
+        "notes": null
+      }
+    }
+  ],
+  "retryHistory": []
+}
